@@ -1,4 +1,5 @@
 name: GunSystem
 version: '${project.version}'
 main: de.artus.gunsystem.GunSystem
-api-version: 1.20
+
+
