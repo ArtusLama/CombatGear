@@ -1,0 +1,5 @@
+name: GunSystem
+version: '1.0-SNAPSHOT'
+main: de.artus.gunsystem.GunSystem
+
+
