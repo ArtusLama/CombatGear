@@ -26,6 +26,7 @@ public class RayCast {
     }
 
     public static void shootWithDrop(RayConfiguration rayConfiguration) {
+        //FIXME lagging when shooting straight up (maybe add y offset limit)
         RayTraceResult result = null;
 
         Location startLocation = rayConfiguration.start.clone();
