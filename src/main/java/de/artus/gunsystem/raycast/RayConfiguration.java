@@ -18,6 +18,7 @@ public class RayConfiguration {
     public FluidCollisionMode fluidCollision;
     public boolean ignorePassableBlocks;
     public @Nullable Predicate<Entity> filter;
+    public float drop;
 
     public RayConfiguration(Location start, Vector direction, double maxDistance, FluidCollisionMode fluidCollision, boolean ignorePassableBlocks, @Nullable Predicate<Entity> filter) {
         this.start = start;
@@ -26,6 +27,17 @@ public class RayConfiguration {
         this.fluidCollision = fluidCollision;
         this.ignorePassableBlocks = ignorePassableBlocks;
         this.filter = filter;
+        this.drop = 0;
+    }
+
+    public RayConfiguration(Location start, Vector direction, double maxDistance, FluidCollisionMode fluidCollision, boolean ignorePassableBlocks, @Nullable Predicate<Entity> filter, float drop) {
+        this.start = start;
+        this.direction = direction;
+        this.maxDistance = maxDistance;
+        this.fluidCollision = fluidCollision;
+        this.ignorePassableBlocks = ignorePassableBlocks;
+        this.filter = filter;
+        this.drop = drop;
     }
 
 
@@ -37,6 +49,16 @@ public class RayConfiguration {
                 FluidCollisionMode.NEVER,
                 false,
                 p -> !p.equals(player));
+    }
+    public static RayConfiguration fromPlayerWithDrop(Player player, float drop) {
+        return new RayConfiguration(
+                player.getEyeLocation(),
+                player.getEyeLocation().getDirection(),
+                100,
+                FluidCollisionMode.NEVER,
+                false,
+                p -> !p.equals(player),
+                drop);
     }
 
 
