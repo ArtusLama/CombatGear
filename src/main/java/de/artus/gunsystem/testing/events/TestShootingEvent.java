@@ -17,6 +17,8 @@ public class TestShootingEvent implements Listener {
             if (e.hasItem()) {
                 if (e.getItem().getType() == Material.STICK) {
                     RayCast.shootWithDrop(RayConfiguration.fromPlayerWithDrop(e.getPlayer(), SetDropCommand.drop));
+                } else if (e.getItem().getType() == Material.BLAZE_ROD) {
+                    RayCast.shootSlowWithDrag(RayConfiguration.fromPlayer(e.getPlayer()), 0.5f, SetDropCommand.drop);
                 }
             }
         }
