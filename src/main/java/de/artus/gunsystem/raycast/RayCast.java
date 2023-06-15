@@ -3,6 +3,7 @@ package de.artus.gunsystem.raycast;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.EntityType;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
@@ -11,6 +12,7 @@ public class RayCast {
 
 
     public static RayTraceResult shoot(RayConfiguration rayConfiguration) {
+        //FIXME: item is NOT passable! Add to filter
         RayTraceResult result = rayConfiguration.start.getWorld().rayTrace(
                     rayConfiguration.start,
                     rayConfiguration.direction,
@@ -26,7 +28,7 @@ public class RayCast {
     public static void shootWithDrop(RayConfiguration rayConfiguration) {
         RayTraceResult result = null;
 
-        Location startLocation = rayConfiguration.start;
+        Location startLocation = rayConfiguration.start.clone();
         Vector direction = rayConfiguration.direction;
         rayConfiguration.maxDistance = 0.01; //TODO maybe change to better
 
@@ -49,13 +51,14 @@ public class RayCast {
             startLocation = startLocation.add(direction);
 
             //TESTING
-            startLocation.getWorld().spawnParticle(Particle.FLAME, startLocation, 0);
-            Bukkit.broadcastMessage("[%d] %f".formatted(iterations, rayConfiguration.drop));
+            startLocation.getWorld().spawnParticle(Particle.DRIP_LAVA, startLocation, 0, 0, 0, 0, 0, null, true);
+            Bukkit.broadcastMessage("[%d] ".formatted(iterations) + getDrop(direction, rayConfiguration.drop).getY());
 
             iterations++;
         }
         //TESTING
-        rayConfiguration.start.getWorld().spawnParticle(Particle.END_ROD, result.getHitPosition().toLocation(rayConfiguration.start.getWorld()), 0);
+        //NOT ACCURATE
+        startLocation.getWorld().spawnParticle(Particle.DRAGON_BREATH, result.getHitPosition().clone().subtract(direction.clone().multiply(0.5)).toLocation(startLocation.getWorld()), 0);
     }
 
     public static Vector getDrop(Vector direction, float drop) {

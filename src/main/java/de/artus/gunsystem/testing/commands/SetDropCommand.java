@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 
 public class SetDropCommand implements CommandExecutor {
 
-    public static float drop = 0;
+    public static float drop = 0.0005f;
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
